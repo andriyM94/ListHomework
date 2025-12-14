@@ -1,33 +1,123 @@
 public class MyLinkedList<T> implements List<T> {
+    private int size = 0;
+
+    Node<T> first = new Node<>();
+    Node<T> last = new Node<>();
+
+    private static class Node<E> {
+        E value;
+        Node<E> prev;
+        Node<E> next;
+    }
+
     @Override
     public int size() {
-        // put or implementation here
-        return 0;
+        return size;
     }
 
     @Override
     public void add(T element) {
-        // put or implementation here
 
+        Node<T> node = new Node<>();
+        node.value = element;
+
+        if (first.next == null) {
+            first.next = node;
+            last.prev = node;
+        } else {
+            Node<T> l = last;
+            l.prev.next = node;
+            node.prev = l.prev;
+            l.prev = node;
+        }
+
+        size++;
     }
 
     @Override
     public void addByIndex(T element, int index) {
-        // put or implementation here
+        Node<T> currentNode = getNodeByIndex(index);
 
+        Node<T> newNode = new Node<>();
+        newNode.value = element;
+
+        Node<T> prev;
+
+        if (size == index) {
+
+            if (index == 0) {
+                add(element);
+                return;
+            }
+
+            prev = getNodeByIndex(index - 1);
+        } else {
+            prev = currentNode.prev;
+
+            newNode.next = currentNode;
+            currentNode.prev = newNode;
+        }
+
+        newNode.prev = prev;
+        prev.next = newNode;
+
+        size++;
     }
 
     @Override
     public T getByIndex(int index) {
-        // put or implementation here
+        Node<T> currentNode = getNodeByIndex(index);
 
-        return null;
+        return currentNode.value;
+    }
+
+    private Node<T> getNodeByIndex (int index) {
+        if (index < 0) {
+            throw new RuntimeException("Index must be > 0");
+        }
+
+        if (index > size) {
+            throw new RuntimeException("Index must be < " + size + " and > 0");
+        }
+
+        if (index == 0) {
+            return first;
+        }
+
+        Node<T> currentNode = first.next;
+
+        for (int i = 0; i < index; i++) {
+            currentNode = currentNode.next;
+        }
+
+        return currentNode;
     }
 
     @Override
     public void clear() {
-        // put or implementation here
+        size = 0;
+        first = new Node<>();
+        last = new Node<>();
+    }
 
+    @Override
+    public String toString() {
+        String str = "List : [";
+
+        if (first.next != null) {
+            Node<T> currentNode = first.next;
+
+            for (int i = 0; i < size; i++) {
+                str = str + currentNode.value + ", ";
+                currentNode = currentNode.next;
+            }
+
+            str = str.substring(0, str.length() - 2);
+        }
+
+        str = str + "]";
+
+        return str;
     }
 }
 
