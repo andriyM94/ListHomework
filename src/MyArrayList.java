@@ -34,11 +34,18 @@ public class MyArrayList<T> implements List<T> {
             throw new RuntimeException("Index can not be better for size");
         }
 
+        if (index == size) {
+            add(element);
+            return;
+        }
+
         checkCapacity();
 
         System.arraycopy(array, index, array, index + 1, size - index);
 
         array[index] = element;
+
+        size++;
     }
 
     @Override
@@ -64,11 +71,13 @@ public class MyArrayList<T> implements List<T> {
     public String toString() {
         String str = "[";
 
-        for (int i = 0; i < size; i++) {
-            str = str + array[i] + ", ";
-        }
+        if (size != 0) {
+            for (int i = 0; i < size; i++) {
+                str = str + array[i] + ", ";
+            }
 
-        str = str.substring(0, str.length() - 2);
+            str = str.substring(0, str.length() - 2);
+        }
 
         str = str + "]";
 

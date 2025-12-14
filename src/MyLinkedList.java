@@ -36,30 +36,24 @@ public class MyLinkedList<T> implements List<T> {
 
     @Override
     public void addByIndex(T element, int index) {
-        Node<T> currentNode = getNodeByIndex(index);
+        if ((index == 0 && index == size) || (index == size && index > 0)) {
+            add(element);
+            return;
+        }
 
         Node<T> newNode = new Node<>();
         newNode.value = element;
 
-        Node<T> prev;
+        Node<T> currentNode = getNodeByIndex(index);
 
-        if (size == index) {
+        Node<T> prev = currentNode.prev;
 
-            if (index == 0) {
-                add(element);
-                return;
-            }
-
-            prev = getNodeByIndex(index - 1);
-        } else {
-            prev = currentNode.prev;
-
-            newNode.next = currentNode;
-            currentNode.prev = newNode;
-        }
-
-        newNode.prev = prev;
         prev.next = newNode;
+
+        newNode.next = currentNode;
+        newNode.prev = prev;
+
+        currentNode.prev = newNode;
 
         size++;
     }
