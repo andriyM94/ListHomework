@@ -5,9 +5,9 @@ public class MyArrayList<T> implements List<T> {
     private final static int START_CAPACITY = 10;
 
     private int capacity = 10;
-    public int size = 0;
+    private int size = 0;
 
-    public Object[] array = new Object[capacity];
+    private Object[] array = new Object[capacity];
 
     @Override
     public int size() {
