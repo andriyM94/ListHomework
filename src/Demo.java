@@ -3,24 +3,24 @@ import java.util.HashMap;
 public class Demo {
     public static void main(String[] args) {
     // test MyArrayList
-//        MyArrayList<String> strings = new MyArrayList<>();
-//
-//        strings.addByIndex("0 test", 0);
-//        strings.add("1 test");
-//        strings.addByIndex("2 test", 2);
-//        strings.addByIndex("null", 0);
-//
-//        System.out.println("Element by index 1 : " + strings.getByIndex(1));
-//        System.out.println("MyArrayList : " + strings);
-//        System.out.println("Remove element by index 1 - " + strings.removeByIndex(1));
-//        System.out.println("MyArrayList : " + strings);
-//        System.out.println("Size : " + strings.size());
-//        System.out.println("Size before clear: " + strings.size());
-//        strings.clear();
-//        System.out.println("Size after clear: " + strings.size());
-//        System.out.println("MyArrayList : " + strings);
-//
-//        System.out.println("-".repeat(50));
+        MyArrayList<String> strings = new MyArrayList<>();
+
+        strings.addByIndex("0 test", 0);
+        strings.add("1 test");
+        strings.addByIndex("2 test", 2);
+        strings.addByIndex("null", 0);
+
+        System.out.println("Element by index 1 : " + strings.getByIndex(1));
+        System.out.println("MyArrayList : " + strings);
+        System.out.println("Remove element by index 1 - " + strings.removeByIndex(1));
+        System.out.println("MyArrayList : " + strings);
+        System.out.println("Size : " + strings.size());
+        System.out.println("Size before clear: " + strings.size());
+        strings.clear();
+        System.out.println("Size after clear: " + strings.size());
+        System.out.println("MyArrayList : " + strings);
+
+        System.out.println("-".repeat(50));
 
     //test MyLinkedList
         MyLinkedList<String> list = new MyLinkedList<>();
