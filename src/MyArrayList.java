@@ -26,13 +26,7 @@ public class MyArrayList<T> implements List<T> {
 
     @Override
     public void addByIndex(T element, int index) {
-        if (index < 0) {
-            throw new RuntimeException("Index can not be negative");
-        }
-
-        if (index > size) {
-            throw new RuntimeException("Index can not be better for size");
-        }
+        checkIndex(index);
 
         if (index == size) {
             add(element);
@@ -48,9 +42,37 @@ public class MyArrayList<T> implements List<T> {
         size++;
     }
 
+    private void checkIndex(int index) {
+        if (index < 0) {
+            throw new RuntimeException("Index can not be negative");
+        }
+
+        if (index > size) {
+            throw new MyIndexOutBoundsException("Index (" + index + ") can not be better for size(" + size + ")");
+        }
+    }
+
     @Override
     public T getByIndex(int index) {
+        checkIndex(index);
+
         return (T) array[index];
+    }
+
+    @Override
+    public T removeByIndex(int index) {
+
+        T element = getByIndex(index);
+
+        if (index == size - 1) {
+            array[index] = null;
+        } else {
+            System.arraycopy(array, index + 1, array, index, size - index);
+        }
+
+        size--;
+
+        return element;
     }
 
     @Override

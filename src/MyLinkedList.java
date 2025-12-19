@@ -46,12 +46,16 @@ public class MyLinkedList<T> implements List<T> {
 
         Node<T> currentNode = getNodeByIndex(index);
 
-        Node<T> prev = currentNode.prev;
-
-        prev.next = newNode;
+        if (index == 0 && size > 0) {
+            first.next = newNode;
+            newNode.prev = first;
+        } else {
+            Node<T> prev = currentNode.prev;
+            prev.next = newNode;
+            newNode.prev = prev;
+        }
 
         newNode.next = currentNode;
-        newNode.prev = prev;
 
         currentNode.prev = newNode;
 
@@ -65,17 +69,41 @@ public class MyLinkedList<T> implements List<T> {
         return currentNode.value;
     }
 
+    @Override
+    public T removeByIndex(int index) {
+        Node<T> nodeByIndex = getNodeByIndex(index);
+
+        Node<T> prev = nodeByIndex.prev;
+        Node<T> next = nodeByIndex.next;
+
+        if (index == 0) {
+            first.next = next;
+        } else {
+            if (prev != null) {
+                prev.next = next;
+            }
+
+            if (next != null) {
+                next.prev = prev;
+            }
+        }
+
+        size--;
+
+        return nodeByIndex.value;
+    }
+
     private Node<T> getNodeByIndex (int index) {
         if (index < 0) {
-            throw new RuntimeException("Index must be > 0");
+            throw new MyIndexOutBoundsException("Index must be > 0");
         }
 
         if (index > size) {
-            throw new RuntimeException("Index must be < " + size + " and > 0");
+            throw new MyIndexOutBoundsException("Index must be < " + size + " and > 0");
         }
 
         if (index == 0) {
-            return first;
+            return first.next;
         }
 
         Node<T> currentNode = first.next;
